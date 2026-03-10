@@ -1,0 +1,306 @@
+<!DOCTYPE html><html>
+<head>
+<meta charset="UTF-8">
+<title>Premium Certificate Generator</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Playfair+Display&family=EB+Garamond&display=swap" rel="stylesheet"><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><style>
+
+body{
+background:#eef1f7;
+font-family:'EB Garamond';
+text-align:center;
+padding:20px;
+}
+
+/* FORM */
+
+.form{
+background:white;
+width:370px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+margin-bottom:30px;
+}
+
+input,select{
+width:100%;
+padding:8px;
+margin:6px 0;
+}
+
+button{
+padding:10px 18px;
+margin-top:8px;
+background:#1a237e;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+/* CERTIFICATE */
+
+.certificate{
+width:900px;
+margin:auto;
+padding:60px;
+border:6px solid #1a237e;
+outline:4px solid gold;
+outline-offset:-18px;
+position:relative;
+overflow:hidden;
+}
+
+/* SECURITY PATTERN */
+
+.certificate::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:
+repeating-linear-gradient(
+45deg,
+rgba(0,0,0,0.03) 0px,
+rgba(0,0,0,0.03) 2px,
+transparent 2px,
+transparent 8px
+);
+}
+
+/* WATERMARK */
+
+.watermark{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:110px;
+font-family:'Cinzel';
+opacity:0.05;
+}
+
+/* CONTENT */
+
+.content{
+position:relative;
+}
+
+.college{
+font-family:'Cinzel';
+font-size:46px;
+letter-spacing:4px;
+}
+
+.title{
+font-family:'Playfair Display';
+font-size:32px;
+letter-spacing:6px;
+margin:20px 0;
+}
+
+.decor{
+width:220px;
+height:3px;
+background:gold;
+margin:auto;
+margin-bottom:25px;
+}
+
+/* MIDDLE */
+
+.middle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:20px;
+}
+
+.seal{
+width:95px;
+height:95px;
+background:gold;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:'Cinzel';
+font-size:12px;
+color:white;
+}
+
+.name-area{
+flex:1;
+padding:0 20px;
+}
+
+.name{
+font-family:'Cinzel';
+font-size:40px;
+margin-bottom:10px;
+}
+
+.degree{
+font-size:20px;
+}
+
+.message{
+margin:35px;
+font-style:italic;
+font-size:18px;
+}
+
+/* FOOTER */
+
+.footer{
+display:flex;
+justify-content:space-between;
+align-items:end;
+}
+
+.sig{
+text-align:center;
+}
+
+.sig-line{
+width:170px;
+height:2px;
+background:#333;
+margin:auto;
+margin-top:6px;
+}
+
+/* THEME COLORS + INTERIOR */
+
+.theme1{border-color:#0d47a1;background:#f1f6ff}
+.theme2{border-color:#1b5e20;background:#f1fff6}
+.theme3{border-color:#880e4f;background:#fff0f6}
+.theme4{border-color:#bf360c;background:#fff6ef}
+.theme5{border-color:#4a148c;background:#f6f1ff}
+.theme6{border-color:#004d40;background:#f0fffb}
+.theme7{border-color:#827717;background:#fbffe8}
+.theme8{border-color:#263238;background:#f5f7f8}
+.theme9{border-color:#01579b;background:#eef7ff}
+.theme10{border-color:#b71c1c;background:#fff0f0}
+
+.theme11{border-color:#1a237e;background:#f2f3ff}
+.theme12{border-color:#006064;background:#ecffff}
+.theme13{border-color:#33691e;background:#f6ffe9}
+.theme14{border-color:#4e342e;background:#fbf5f2}
+.theme15{border-color:#6a1b9a;background:#f7f0ff}
+
+.theme16{border-color:#4527a0;background:#f4f1ff}
+.theme17{border-color:#0277bd;background:#edf7ff}
+.theme18{border-color:#ad1457;background:#fff0f7}
+.theme19{border-color:#558b2f;background:#f5ffe9}
+.theme20{border-color:#37474f;background:#f4f7f8}
+
+.theme21{border-color:#c62828;background:#fff1f1}
+.theme22{border-color:#3e2723;background:#faf4f1}
+.theme23{border-color:#2e7d32;background:#f1fff3}
+.theme24{border-color:#5d4037;background:#f9f4f2}
+.theme25{border-color:#283593;background:#eef0ff}
+
+.theme26{border-color:#00695c;background:#ecfffb}
+.theme27{border-color:#9c27b0;background:#faf0ff}
+.theme28{border-color:#795548;background:#fbf6f4}
+.theme29{border-color:#1976d2;background:#eef6ff}
+.theme30{border-color:#d32f2f;background:#fff1f1}
+
+</style></head><body><h2>Premium Certificate Generator</h2><div class="form"><input id="college" placeholder="College Name">
+<input id="name" placeholder="Recipient Name">
+<input id="course" placeholder="Course">
+<input id="major" placeholder="Major">
+<input id="date" type="date"><input id="signName" placeholder="Signatory Name"><select id="signRole">
+<option>Principal</option>
+<option>Coordinator</option>
+<option>Chairperson</option>
+<option>Director</option>
+<option>Registrar</option>
+<option>Controller of Examinations</option>
+</select><select id="theme"><option value="theme1">Royal Blue</option>
+<option value="theme2">Emerald Gold</option>
+<option value="theme3">Crimson Elite</option>
+<option value="theme4">Sunset Bronze</option>
+<option value="theme5">Royal Purple</option>
+<option value="theme6">Teal Prestige</option>
+<option value="theme7">Olive Heritage</option>
+<option value="theme8">Charcoal Classic</option>
+<option value="theme9">Ocean Sapphire</option>
+<option value="theme10">Ruby Signature</option><option value="theme11">Midnight Royal</option>
+<option value="theme12">Aqua Prime</option>
+<option value="theme13">Forest Crown</option>
+<option value="theme14">Coffee Noble</option>
+<option value="theme15">Lavender Royal</option><option value="theme16">Indigo Master</option>
+<option value="theme17">Sky Platinum</option>
+<option value="theme18">Rose Prestige</option>
+<option value="theme19">Green Monarch</option>
+<option value="theme20">Steel Authority</option><option value="theme21">Scarlet Supreme</option>
+<option value="theme22">Dark Walnut</option>
+<option value="theme23">Elite Green</option>
+<option value="theme24">Classic Mocha</option>
+<option value="theme25">Imperial Blue</option><option value="theme26">Deep Teal</option>
+<option value="theme27">Royal Orchid</option>
+<option value="theme28">Golden Brown</option>
+<option value="theme29">Azure Royal</option>
+<option value="theme30">Grand Crimson</option></select><button onclick="generate()">Generate</button>
+<button onclick="downloadPDF()">Download PDF</button>
+
+</div><div id="certificate" class="certificate theme1"><div class="watermark">I T S COLLEGE</div><div class="content"><div class="college" id="c_college">COLLEGE NAME</div><div class="title">CERTIFICATE OF GRADUATION</div><div class="decor"></div><p>This is to certify that</p><div class="middle"><div class="seal">OFFICIAL<br>SEAL</div><div class="name-area"><div class="name" id="c_name">Recipient Name</div><div class="degree">
+has successfully completed <b id="c_degree">Course in Major</b>
+</div></div><div id="qrcode"></div></div><div class="message">
+May this achievement mark the beginning of a journey filled with knowledge and success.
+</div><div class="footer"><div id="c_date">Date</div><div class="sig"><div id="c_signName">Signatory Name</div><div class="sig-line"></div><div id="c_signRole">Principal</div></div></div></div></div><script>
+
+function generate(){
+
+let college=document.getElementById("college").value
+let name=document.getElementById("name").value
+let course=document.getElementById("course").value
+let major=document.getElementById("major").value
+let date=document.getElementById("date").value
+let signName=document.getElementById("signName").value
+let signRole=document.getElementById("signRole").value
+let theme=document.getElementById("theme").value
+
+document.getElementById("c_college").innerText=college
+document.getElementById("c_name").innerText=name
+document.getElementById("c_degree").innerText=course+" in "+major
+document.getElementById("c_date").innerText="Date: "+date
+document.getElementById("c_signName").innerText=signName
+document.getElementById("c_signRole").innerText=signRole
+
+document.getElementById("certificate").className="certificate "+theme
+
+let qrData=college+" "+name+" "+course+" "+major+" "+date
+
+document.getElementById("qrcode").innerHTML=""
+
+new QRCode(document.getElementById("qrcode"),{
+text:qrData,
+width:90,
+height:90
+})
+
+}
+
+function downloadPDF(){
+
+const {jsPDF}=window.jspdf
+
+html2canvas(document.getElementById("certificate")).then(canvas=>{
+
+let img=canvas.toDataURL("image/png")
+
+let pdf=new jsPDF("l","mm","a4")
+
+pdf.addImage(img,"PNG",10,10,270,180)
+
+pdf.save("certificate.pdf")
+
+})
+
+}
+
+</script></body>
+</html>
