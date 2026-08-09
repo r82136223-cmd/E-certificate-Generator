@@ -1,3 +1,173 @@
+
+
+
+
+
+Pasted text.txt
+Document
+lo isme add karke dedo without any vchanges
+
+AISA AA RAHA HAI
+
+LINK PE CLICK KARNE KE BAAD FILE NOT FUND AAARA AHAAI
+
+
+Haan bhai — ab mujhe exact problem mil gayi hai. 😅
+Maine tumhari actual GitHub index.html check ki hai.
+
+Tumhare GitHub file mein abhi bhi Account / Sign Up / Login wala HTML hai hi nahi. Lines 202–269 mein directly certificate generator start ho raha hai. 
+
+Aur Supabase connection sirf lines 350–366 mein hai. 
+
+Isliye website same dikh rahi hai.
+Meri pichhli response mein galti thi — maine assume kar liya tha ki tumne naya code GitHub mein successfully commit kar diya hai.
+
+Ab ekdum simple karo
+GitHub repository mein:
+
+index.html → ✏️ Edit
+
+Phir poora current code delete mat karo.
+
+</body> se just pehle ye poora code paste karo:
+<!-- ACCOUNT SYSTEM -->
+
+<div class="account-box">
+
+<h2>Account</h2>
+
+<h3>Create Account</h3>
+
+<input id="signupName" type="text" placeholder="Your Name">
+
+<input id="signupEmail" type="email" placeholder="Email">
+
+<input id="signupPassword" type="password" placeholder="Password">
+
+<br>
+
+<button onclick="signUp()">Sign Up</button>
+
+<hr>
+
+<h3>Login</h3>
+
+<input id="loginEmail" type="email" placeholder="Login Email">
+
+<input id="loginPassword" type="password" placeholder="Login Password">
+
+<br>
+
+<button onclick="login()">Login</button>
+
+<button onclick="logout()">Logout</button>
+
+<div id="userInfo"></div>
+
+<div id="authMessage"></div>
+
+</div>
+Lekin ek aur CSS part bhi chahiye, isliye abhi ise paste karke commit mat karna.
+
+Pehle mujhe bas ek screenshot bhejo:
+GitHub mein Edit index.html wali screen ka screenshot, jahan code dikh raha ho.
+
+Main tumhe usi exact position par bataunga:
+
+"Yahan paste karo"
+
+Phir hum ek-ek step karenge. Is baar tumhara existing certificate code delete nahi hoga.
+
+
+
+Pasted text(1).txt
+Document
+YE RAHA CODE TUM HI ADD KARKE DEDO
+
+Worked for 1m 4s
+Haan bhai 👍 ab maine tumhare diye hue original code ko hi use karke updated file bana di hai. Certificate ka existing design, 30 themes, QR code aur PDF wala system rakha hai. Uske saath Sign Up + Login + Logout + logged-in email add hai. Tumhare uploaded code mein Supabase library aur auth section already present tha, lekin maine usko properly organize karke login state bhi fix ki hai. 
+
+
+📥 Updated code
+Download updated index.html
+
+Ab GitHub mein sirf ye karo:
+GitHub → E-certificate-Generator
+
+index.html kholo
+
+✏️ Edit karo
+
+Purana code poora delete
+
+Download ki hui index.html ko Notepad/VS Code mein open karo.
+
+Ctrl + A → Ctrl + C
+
+GitHub editor mein Ctrl + V
+
+Commit changes
+
+1–2 minute wait
+
+GitHub Pages website par Ctrl + F5
+
+Website ke top par ab:
+
+ACCOUNT
+
+Create Account
+Your Name
+Email
+Password
+[ Sign Up ]
+
+----------------
+
+Login
+Login Email
+Login Password
+[ Login ]
+dikhna chahiye.
+
+Important: abhi local C:\Users\...\Downloads\...html file ko open karke test mat karna. GitHub Pages wala link open karke test karna.
+
+Aur haan — maine JavaScript syntax bhi check kar liya hai; code mein syntax error nahi hai.
+
+
+
+index.html
+HTML
+
+
+CODE TO DO
+
+Haan bhai, ye raha complete updated code jo tumhari uploaded file mein hai. Isko directly copy karke GitHub ke index.html mein paste kar sakte ho.
+
+Download complete updated index.html
+
+Is version mein:
+
+✅ Sign Up
+
+✅ Login
+
+✅ Logout
+
+✅ Logged-in email
+
+✅ Supabase Auth
+
+✅ 30 certificate themes
+
+✅ QR code
+
+✅ PDF download
+
+✅ Certificate generator
+
+GitHub: index.html → Edit → Ctrl+A → paste this code → Commit changes → GitHub Pages refresh with Ctrl+F5. 
+
 <!DOCTYPE html>
 <html>
 
@@ -9,12 +179,16 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Playfair+Display&family=EB+Garamond&display=swap" rel="stylesheet">
 
+<!-- QR Code -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<!-- HTML2Canvas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- SUPABASE -->
@@ -30,421 +204,262 @@ text-align:center;
 padding:20px;
 }
 
-
-/* ================================
-   ACCOUNT
-================================ */
-
-.account-box{
-
-background:white;
-
-width:370px;
-
-margin:0 auto 30px auto;
-
-padding:25px;
-
-border-radius:10px;
-
-box-shadow:0 8px 25px rgba(0,0,0,0.15);
-
-}
-
-.account-box h2{
-
-font-family:'Playfair Display';
-
-margin-top:5px;
-
-}
-
-.account-box input{
-
-width:90%;
-
-padding:10px;
-
-margin:6px;
-
-}
-
-.account-box button{
-
-padding:10px 20px;
-
-margin:6px;
-
-background:#1a237e;
-
-color:white;
-
-border:none;
-
-border-radius:5px;
-
-cursor:pointer;
-
-}
-
-.account-box hr{
-
-margin:20px 0;
-
-}
-
-#userInfo{
-
-font-size:18px;
-
-font-weight:bold;
-
-margin:10px;
-
-}
-
-#authMessage{
-
-margin-top:10px;
-
-font-size:16px;
-
-}
-
-
 /* FORM */
 
 .form{
-
 background:white;
-
 width:370px;
-
 margin:auto;
-
 padding:20px;
-
 border-radius:10px;
-
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
-
 margin-bottom:30px;
-
 }
 
 input,select{
-
 width:100%;
-
 padding:8px;
-
 margin:6px 0;
-
+box-sizing:border-box;
 }
 
 button{
-
 padding:10px 18px;
-
 margin-top:8px;
-
 background:#1a237e;
-
 color:white;
-
 border:none;
-
 cursor:pointer;
-
+border-radius:5px;
 }
 
+button:hover{
+background:#303f9f;
+}
+
+/* AUTH */
+
+#authSection{
+border-top:5px solid #1a237e;
+}
+
+#userInfo{
+display:none;
+background:#e8f5e9;
+padding:10px;
+margin-top:15px;
+border-radius:5px;
+}
+
+#authMessage{
+font-weight:bold;
+margin-top:10px;
+}
+
+/* AUTHENTICATION */
+
+#authSection{
+background:white;
+width:370px;
+margin:0 auto 30px auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+border-top:5px solid #1a237e;
+box-sizing:border-box;
+}
+
+#authSection input{
+width:100%;
+box-sizing:border-box;
+}
+
+#authMessage{
+font-weight:bold;
+margin-top:12px;
+min-height:22px;
+}
+
+#userInfo{
+display:none;
+background:#e8f5e9;
+padding:12px;
+margin-top:15px;
+border-radius:5px;
+}
+
+#certificateSection{
+margin-top:30px;
+}
 
 /* CERTIFICATE */
 
 .certificate{
-
 width:900px;
-
 margin:auto;
-
 padding:60px;
-
 border:6px solid #1a237e;
-
 outline:4px solid gold;
-
 outline-offset:-18px;
-
 position:relative;
-
 overflow:hidden;
-
+box-sizing:border-box;
 }
-
 
 /* SECURITY PATTERN */
 
 .certificate::before{
-
 content:"";
-
 position:absolute;
-
 width:100%;
-
 height:100%;
-
 background:
-
 repeating-linear-gradient(
-
 45deg,
-
 rgba(0,0,0,0.03) 0px,
-
 rgba(0,0,0,0.03) 2px,
-
 transparent 2px,
-
 transparent 8px
-
 );
-
 }
-
 
 /* WATERMARK */
 
 .watermark{
-
 position:absolute;
-
 top:50%;
-
 left:50%;
-
 transform:translate(-50%,-50%);
-
 font-size:110px;
-
 font-family:'Cinzel';
-
 opacity:0.05;
-
 }
-
 
 /* CONTENT */
 
 .content{
-
 position:relative;
-
 }
 
 .college{
-
 font-family:'Cinzel';
-
 font-size:46px;
-
 letter-spacing:4px;
-
 }
 
 .title{
-
 font-family:'Playfair Display';
-
 font-size:32px;
-
 letter-spacing:6px;
-
 margin:20px 0;
-
 }
 
 .decor{
-
 width:220px;
-
 height:3px;
-
 background:gold;
-
 margin:auto;
-
 margin-bottom:25px;
-
 }
-
 
 /* MIDDLE */
 
 .middle{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 margin-top:20px;
-
 }
 
 .seal{
-
 width:95px;
-
 height:95px;
-
 background:gold;
-
 border-radius:50%;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 font-family:'Cinzel';
-
 font-size:12px;
-
 color:white;
-
 }
 
 .name-area{
-
 flex:1;
-
 padding:0 20px;
-
 }
 
 .name{
-
 font-family:'Cinzel';
-
 font-size:40px;
-
 margin-bottom:10px;
-
 }
 
 .degree{
-
 font-size:20px;
-
 }
 
 .message{
-
 margin:35px;
-
 font-style:italic;
-
 font-size:18px;
-
 }
-
 
 /* FOOTER */
 
 .footer{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:end;
-
 }
 
 .sig{
-
 text-align:center;
-
 }
 
 .sig-line{
-
 width:170px;
-
 height:2px;
-
 background:#333;
-
 margin:auto;
-
 margin-top:6px;
-
 }
-
 
 /* THEME COLORS */
 
 .theme1{border-color:#0d47a1;background:#f1f6ff}
-
 .theme2{border-color:#1b5e20;background:#f1fff6}
-
 .theme3{border-color:#880e4f;background:#fff0f6}
-
 .theme4{border-color:#bf360c;background:#fff6ef}
-
 .theme5{border-color:#4a148c;background:#f6f1ff}
-
 .theme6{border-color:#004d40;background:#f0fffb}
-
 .theme7{border-color:#827717;background:#fbffe8}
-
 .theme8{border-color:#263238;background:#f5f7f8}
-
 .theme9{border-color:#01579b;background:#eef7ff}
-
 .theme10{border-color:#b71c1c;background:#fff0f0}
 
 .theme11{border-color:#1a237e;background:#f2f3ff}
-
 .theme12{border-color:#006064;background:#ecffff}
-
 .theme13{border-color:#33691e;background:#f6ffe9}
-
 .theme14{border-color:#4e342e;background:#fbf5f2}
-
 .theme15{border-color:#6a1b9a;background:#f7f0ff}
 
 .theme16{border-color:#4527a0;background:#f4f1ff}
-
 .theme17{border-color:#0277bd;background:#edf7ff}
-
 .theme18{border-color:#ad1457;background:#fff0f7}
-
 .theme19{border-color:#558b2f;background:#f5ffe9}
-
 .theme20{border-color:#37474f;background:#f4f7f8}
 
 .theme21{border-color:#c62828;background:#fff1f1}
-
 .theme22{border-color:#3e2723;background:#faf4f1}
-
 .theme23{border-color:#2e7d32;background:#f1fff3}
-
 .theme24{border-color:#5d4037;background:#f9f4f2}
-
 .theme25{border-color:#283593;background:#eef0ff}
 
 .theme26{border-color:#00695c;background:#ecfffb}
-
 .theme27{border-color:#9c27b0;background:#faf0ff}
-
 .theme28{border-color:#795548;background:#fbf6f4}
-
 .theme29{border-color:#1976d2;background:#eef6ff}
-
 .theme30{border-color:#d32f2f;background:#fff1f1}
 
 </style>
@@ -455,96 +470,61 @@ margin-top:6px;
 <body>
 
 
-<!-- ==================================
-     ACCOUNT / LOGIN SYSTEM
-================================== -->
+<!-- ========================= -->
+<!-- SUPABASE LOGIN / SIGNUP -->
+<!-- ========================= -->
 
-<div class="account-box">
+<div class="form" id="authSection">
 
 <h2>Account</h2>
 
+<div id="loggedOutArea">
 
-<!-- SIGN UP -->
+<h3>Create Account</h3>
 
-<div id="signupSection">
+<input id="signupName" type="text" placeholder="Your Name">
 
-<h2>Create Account</h2>
+<input id="signupEmail" type="email" placeholder="Email">
 
-<input
-id="signupName"
-type="text"
-placeholder="Your Name"
->
+<input id="signupPassword" type="password" placeholder="Password (minimum 6 characters)">
 
-<input
-id="signupEmail"
-type="email"
-placeholder="Email"
->
-
-<input
-id="signupPassword"
-type="password"
-placeholder="Password"
->
-
-<br>
-
-<button onclick="signUp()">
-Sign Up
-</button>
-
-</div>
-
+<button onclick="signUp()">Sign Up</button>
 
 <hr>
 
+<h3>Login</h3>
 
-<!-- LOGIN -->
+<input id="loginEmail" type="email" placeholder="Login Email">
 
-<div id="loginSection">
+<input id="loginPassword" type="password" placeholder="Login Password">
 
-<h2>Login</h2>
+<button onclick="login()">Login</button>
 
-<input
-id="loginEmail"
-type="email"
-placeholder="Login Email"
->
+</div>
 
-<input
-id="loginPassword"
-type="password"
-placeholder="Login Password"
->
+<div id="loggedInArea" style="display:none;">
 
-<br>
+<div id="userInfo">
 
-<button onclick="login()">
-Login
-</button>
+Logged in as:<br>
+<strong id="loggedUser"></strong>
+
+</div>
+
+<button onclick="logout()">Logout</button>
+
+</div>
+
+<p id="authMessage"></p>
 
 </div>
 
 
-<!-- USER -->
+<!-- ========================= -->
+<!-- CERTIFICATE GENERATOR -->
+<!-- ========================= -->
 
-<div id="loggedSection" style="display:none;">
-
-<div id="userInfo"></div>
-
-<button onclick="logout()">
-Logout
-</button>
-
-</div>
-
-
-<div id="authMessage"></div>
-
-</div>
-
-
+<div id="certificateSection">
 
 <h2>Premium Certificate Generator</h2>
 
@@ -585,15 +565,10 @@ placeholder="Signatory Name"
 <select id="signRole">
 
 <option>Principal</option>
-
 <option>Coordinator</option>
-
 <option>Chairperson</option>
-
 <option>Director</option>
-
 <option>Registrar</option>
-
 <option>Controller of Examinations</option>
 
 </select>
@@ -602,63 +577,38 @@ placeholder="Signatory Name"
 <select id="theme">
 
 <option value="theme1">Royal Blue</option>
-
 <option value="theme2">Emerald Gold</option>
-
 <option value="theme3">Crimson Elite</option>
-
 <option value="theme4">Sunset Bronze</option>
-
 <option value="theme5">Royal Purple</option>
-
 <option value="theme6">Teal Prestige</option>
-
 <option value="theme7">Olive Heritage</option>
-
 <option value="theme8">Charcoal Classic</option>
-
 <option value="theme9">Ocean Sapphire</option>
-
 <option value="theme10">Ruby Signature</option>
 
 <option value="theme11">Midnight Royal</option>
-
 <option value="theme12">Aqua Prime</option>
-
 <option value="theme13">Forest Crown</option>
-
 <option value="theme14">Coffee Noble</option>
-
 <option value="theme15">Lavender Royal</option>
 
 <option value="theme16">Indigo Master</option>
-
 <option value="theme17">Sky Platinum</option>
-
 <option value="theme18">Rose Prestige</option>
-
 <option value="theme19">Green Monarch</option>
-
 <option value="theme20">Steel Authority</option>
 
 <option value="theme21">Scarlet Supreme</option>
-
 <option value="theme22">Dark Walnut</option>
-
 <option value="theme23">Elite Green</option>
-
 <option value="theme24">Classic Mocha</option>
-
 <option value="theme25">Imperial Blue</option>
 
 <option value="theme26">Deep Teal</option>
-
 <option value="theme27">Royal Orchid</option>
-
 <option value="theme28">Golden Brown</option>
-
 <option value="theme29">Azure Royal</option>
-
 <option value="theme30">Grand Crimson</option>
 
 </select>
@@ -668,15 +618,16 @@ placeholder="Signatory Name"
 Generate
 </button>
 
-
 <button onclick="downloadPDF()">
 Download PDF
 </button>
 
-
 </div>
 
 
+<!-- ========================= -->
+<!-- CERTIFICATE -->
+<!-- ========================= -->
 
 <div id="certificate" class="certificate theme1">
 
@@ -710,22 +661,16 @@ This is to certify that
 
 
 <div class="seal">
-
 OFFICIAL
-
 <br>
-
 SEAL
-
 </div>
 
 
 <div class="name-area">
 
 <div class="name" id="c_name">
-
 Recipient Name
-
 </div>
 
 
@@ -734,9 +679,7 @@ Recipient Name
 has successfully completed
 
 <b id="c_degree">
-
 Course in Major
-
 </b>
 
 </div>
@@ -745,7 +688,6 @@ Course in Major
 
 
 <div id="qrcode"></div>
-
 
 </div>
 
@@ -759,7 +701,6 @@ May this achievement mark the beginning of a journey filled with knowledge and s
 
 <div class="footer">
 
-
 <div id="c_date">
 Date
 </div>
@@ -768,11 +709,8 @@ Date
 <div class="sig">
 
 <div id="c_signName">
-
 Signatory Name
-
 </div>
-
 
 <div class="sig-line"></div>
 
@@ -780,8 +718,13 @@ Signatory Name
 
 
 <div id="c_signRole">
-
 Principal
+</div>
+
+</div>
+
+
+</div>
 
 </div>
 
@@ -789,11 +732,9 @@ Principal
 </div>
 
 
-</div>
-
-</div>
-
-
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
 
 <script>
 
@@ -802,18 +743,15 @@ Principal
    SUPABASE CONNECTION
 ================================== */
 
-const SUPABASE_URL =
-"https://bbjvpawgjmyndmvqbugv.supabase.co";
+
+const SUPABASE_URL = "https://bbjvpawgjmyndmvqbugv.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_D8zd7O1S0Tr41SyYMkhNEA_1-29mF4c";
 
 
-const SUPABASE_KEY =
-"sb_publishable_D8zd7O1S0Tr41SyYMkhNEA_1-29mF4c";
-
-
-const supabaseClient =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
@@ -822,376 +760,236 @@ SUPABASE_KEY
    SIGN UP
 ================================== */
 
+
 async function signUp(){
 
-const name =
-document.getElementById("signupName").value.trim();
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const message = document.getElementById("authMessage");
 
+    if(!name || !email || !password){
+        message.innerText = "Please fill all fields.";
+        return;
+    }
 
-const email =
-document.getElementById("signupEmail").value.trim();
+    if(password.length < 6){
+        message.innerText = "Password must be at least 6 characters.";
+        return;
+    }
 
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+            data: { full_name: name }
+        }
+    });
 
-const password =
-document.getElementById("signupPassword").value;
+    if(error){
+        message.innerText = error.message;
+        return;
+    }
 
-
-if(!name || !email || !password){
-
-document.getElementById("authMessage").innerText =
-"Please fill all fields.";
-
-return;
-
+    if(data.session){
+        message.innerText = "Account created and logged in successfully!";
+        showUser(data.user);
+    } else {
+        message.innerText = "Account created! Check your email to confirm your account, then login.";
+    }
 }
-
-
-if(password.length < 6){
-
-document.getElementById("authMessage").innerText =
-"Password must be at least 6 characters.";
-
-return;
-
-}
-
-
-const {data,error} =
-await supabaseClient.auth.signUp({
-
-email:email,
-
-password:password,
-
-options:{
-data:{
-full_name:name
-}
-}
-
-});
-
-
-if(error){
-
-document.getElementById("authMessage").innerText =
-error.message;
-
-return;
-
-}
-
-
-if(data.user && !data.session){
-
-document.getElementById("authMessage").innerText =
-"Account created! Please check your email to confirm your account.";
-
-}
-
-else{
-
-document.getElementById("authMessage").innerText =
-"Account created successfully!";
-
-}
-
-}
-
 
 
 /* ==================================
    LOGIN
 ================================== */
 
+
 async function login(){
 
-const email =
-document.getElementById("loginEmail").value.trim();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const message = document.getElementById("authMessage");
 
+    if(!email || !password){
+        message.innerText = "Please enter email and password.";
+        return;
+    }
 
-const password =
-document.getElementById("loginPassword").value;
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
 
+    if(error){
+        message.innerText = error.message;
+        return;
+    }
 
-if(!email || !password){
-
-document.getElementById("authMessage").innerText =
-"Please enter email and password.";
-
-return;
-
+    message.innerText = "Login successful!";
+    showUser(data.user);
 }
 
 
-const {data,error} =
-await supabaseClient.auth.signInWithPassword({
+/* ==================================
+   SHOW LOGGED-IN USER
+================================== */
 
-email:email,
 
-password:password
+function showUser(user){
 
+    if(!user){
+        showLoggedOut();
+        return;
+    }
+
+    document.getElementById("loggedOutArea").style.display = "none";
+    document.getElementById("loggedInArea").style.display = "block";
+    document.getElementById("userInfo").style.display = "block";
+    document.getElementById("loggedUser").innerText = user.email;
+
+    console.log("USER ID:", user.id);
+    console.log("EMAIL:", user.email);
+}
+
+function showLoggedOut(){
+    document.getElementById("loggedOutArea").style.display = "block";
+    document.getElementById("loggedInArea").style.display = "none";
+    document.getElementById("userInfo").style.display = "none";
+}
+
+async function checkUser(){
+    const { data } = await supabaseClient.auth.getUser();
+
+    if(data.user){
+        showUser(data.user);
+    } else {
+        showLoggedOut();
+    }
+}
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    if(session){
+        showUser(session.user);
+    } else {
+        showLoggedOut();
+    }
 });
 
-
-if(error){
-
-document.getElementById("authMessage").innerText =
-error.message;
-
-return;
-
-}
-
-
-document.getElementById("authMessage").innerText =
-"Login successful!";
-
-}
-
+checkUser();
 
 
 /* ==================================
    LOGOUT
 ================================== */
 
+
 async function logout(){
 
-const {error} =
-await supabaseClient.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
 
+    if(error){
+        document.getElementById("authMessage").innerText = error.message;
+        return;
+    }
 
-if(error){
-
-document.getElementById("authMessage").innerText =
-error.message;
-
-return;
-
+    document.getElementById("authMessage").innerText = "Logged out successfully!";
+    showLoggedOut();
 }
-
-
-document.getElementById("authMessage").innerText =
-"Logged out successfully.";
-
-}
-
 
 
 /* ==================================
-   CHECK LOGIN
+   CERTIFICATE GENERATOR
 ================================== */
 
-async function checkUser(){
 
-const {data} =
-await supabaseClient.auth.getUser();
+function generate(){
 
+    supabaseClient.auth.getUser().then(({data}) => {
+        if(!data.user){
+            alert("Please Login first.");
+            return;
+        }
 
-if(data.user){
+        let college =
+        document.getElementById("college").value;
 
-showLoggedIn(data.user);
+    let name =
+        document.getElementById("name").value;
 
-}
+    let course =
+        document.getElementById("course").value;
 
-else{
+    let major =
+        document.getElementById("major").value;
 
-showLoggedOut();
+    let date =
+        document.getElementById("date").value;
 
-}
+    let signName =
+        document.getElementById("signName").value;
 
-}
+    let signRole =
+        document.getElementById("signRole").value;
 
+    let theme =
+        document.getElementById("theme").value;
 
 
-/* ==================================
-   SHOW LOGGED USER
-================================== */
+    document.getElementById("c_college").innerText =
+        college;
 
-function showLoggedIn(user){
 
-document.getElementById("signupSection").style.display =
-"none";
+    document.getElementById("c_name").innerText =
+        name;
 
 
-document.getElementById("loginSection").style.display =
-"none";
+    document.getElementById("c_degree").innerText =
+        course + " in " + major;
 
 
-document.getElementById("loggedSection").style.display =
-"block";
+    document.getElementById("c_date").innerText =
+        "Date: " + date;
 
 
-const name =
-user.user_metadata?.full_name || "User";
+    document.getElementById("c_signName").innerText =
+        signName;
 
 
-document.getElementById("userInfo").innerText =
-"Logged in as: " + name + "\n" + user.email;
+    document.getElementById("c_signRole").innerText =
+        signRole;
 
-}
 
+    document.getElementById("certificate").className =
+        "certificate " + theme;
 
 
-/* ==================================
-   SHOW LOGGED OUT
-================================== */
+    let qrData =
+        college + " " +
+        name + " " +
+        course + " " +
+        major + " " +
+        date;
 
-function showLoggedOut(){
 
-document.getElementById("signupSection").style.display =
-"block";
+    document.getElementById("qrcode").innerHTML =
+        "";
 
 
-document.getElementById("loginSection").style.display =
-"block";
+    new QRCode(
+        document.getElementById("qrcode"),
+        {
 
+            text: qrData,
 
-document.getElementById("loggedSection").style.display =
-"none";
+            width: 90,
 
-}
+            height: 90
 
+        }
+    );
 
-
-/* ==================================
-   AUTH STATE
-================================== */
-
-supabaseClient.auth.onAuthStateChange(
-
-(event,session)=>{
-
-if(session){
-
-showLoggedIn(session.user);
-
-}
-
-else{
-
-showLoggedOut();
-
-}
-
-}
-
-);
-
-
-
-checkUser();
-
-
-
-/* ==================================
-   GENERATE CERTIFICATE
-================================== */
-
-async function generate(){
-
-
-const {data} =
-await supabaseClient.auth.getUser();
-
-
-if(!data.user){
-
-alert("Please Login first.");
-
-return;
-
-}
-
-
-let college =
-document.getElementById("college").value;
-
-
-let name =
-document.getElementById("name").value;
-
-
-let course =
-document.getElementById("course").value;
-
-
-let major =
-document.getElementById("major").value;
-
-
-let date =
-document.getElementById("date").value;
-
-
-let signName =
-document.getElementById("signName").value;
-
-
-let signRole =
-document.getElementById("signRole").value;
-
-
-let theme =
-document.getElementById("theme").value;
-
-
-document.getElementById("c_college").innerText =
-college;
-
-
-document.getElementById("c_name").innerText =
-name;
-
-
-document.getElementById("c_degree").innerText =
-course+" in "+major;
-
-
-document.getElementById("c_date").innerText =
-"Date: "+date;
-
-
-document.getElementById("c_signName").innerText =
-signName;
-
-
-document.getElementById("c_signRole").innerText =
-signRole;
-
-
-document.getElementById("certificate").className =
-"certificate "+theme;
-
-
-let qrData =
-college+" "+
-name+" "+
-course+" "+
-major+" "+
-date;
-
-
-document.getElementById("qrcode").innerHTML =
-"";
-
-
-new QRCode(
-
-document.getElementById("qrcode"),
-
-{
-
-text:qrData,
-
-width:90,
-
-height:90
-
-}
-
-);
-
+    });
 }
 
 
@@ -1200,61 +998,48 @@ height:90
    DOWNLOAD PDF
 ================================== */
 
+
 async function downloadPDF(){
 
+    const { data } = await supabaseClient.auth.getUser();
 
-const {data} =
-await supabaseClient.auth.getUser();
+    if(!data.user){
+        alert("Please Login first.");
+        return;
+    }
 
-
-if(!data.user){
-
-alert("Please Login first.");
-
-return;
-
-}
+    const { jsPDF } = window.jspdf;
 
 
-const {jsPDF} =
-window.jspdf;
+    html2canvas(
+        document.getElementById("certificate")
+    ).then(canvas => {
 
 
-html2canvas(
-
-document.getElementById("certificate")
-
-).then(canvas=>{
+        let img =
+            canvas.toDataURL("image/png");
 
 
-let img =
-canvas.toDataURL("image/png");
+        let pdf =
+            new jsPDF("l","mm","a4");
 
 
-let pdf =
-new jsPDF(
-"l",
-"mm",
-"a4"
-);
+        pdf.addImage(
+            img,
+            "PNG",
+            10,
+            10,
+            270,
+            180
+        );
 
 
-pdf.addImage(
-img,
-"PNG",
-10,
-10,
-270,
-180
-);
+        pdf.save("certificate.pdf");
 
-
-pdf.save("certificate.pdf");
-
-
-});
+    });
 
 }
+
 
 </script>
 
@@ -1262,3 +1047,9 @@ pdf.save("certificate.pdf");
 </body>
 
 </html>
+
+
+index.html
+HTML
+
+
