@@ -21,15 +21,7 @@ text-align:center;
 padding:20px;
 }
 
-.form{
-background:white;
-width:370px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 8px 25px rgba(0,0,0,0.15);
-margin-bottom:30px;
-}
+/* ACCOUNT */
 
 .account{
 background:white;
@@ -44,6 +36,31 @@ box-shadow:0 8px 25px rgba(0,0,0,0.15);
 width:90%;
 padding:9px;
 margin:6px;
+}
+
+.account button{
+padding:10px 18px;
+margin:6px;
+background:#1a237e;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#userBox{
+display:none;
+}
+
+/* FORM */
+
+.form{
+background:white;
+width:370px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+margin-bottom:30px;
 }
 
 input,select{
@@ -62,14 +79,6 @@ border:none;
 cursor:pointer;
 }
 
-#userBox{
-display:none;
-}
-
-#authMessage{
-font-weight:bold;
-}
-
 /* CERTIFICATE */
 
 .certificate{
@@ -82,6 +91,8 @@ outline-offset:-18px;
 position:relative;
 overflow:hidden;
 }
+
+/* SECURITY PATTERN */
 
 .certificate::before{
 content:"";
@@ -98,6 +109,8 @@ transparent 8px
 );
 }
 
+/* WATERMARK */
+
 .watermark{
 position:absolute;
 top:50%;
@@ -107,6 +120,8 @@ font-size:110px;
 font-family:'Cinzel';
 opacity:0.05;
 }
+
+/* CONTENT */
 
 .content{
 position:relative;
@@ -132,6 +147,8 @@ background:gold;
 margin:auto;
 margin-bottom:25px;
 }
+
+/* MIDDLE */
 
 .middle{
 display:flex;
@@ -173,6 +190,8 @@ margin:35px;
 font-style:italic;
 font-size:18px;
 }
+
+/* FOOTER */
 
 .footer{
 display:flex;
@@ -281,6 +300,10 @@ margin-top:6px;
 </div>
 
 
+<!-- =========================
+     CERTIFICATE FORM
+========================= -->
+
 <div class="form">
 
 <input id="college" placeholder="College Name">
@@ -351,6 +374,10 @@ margin-top:6px;
 
 </div>
 
+
+<!-- =========================
+     CERTIFICATE
+========================= -->
 
 <div id="certificate" class="certificate theme1">
 
@@ -424,7 +451,7 @@ Principal
 
 
 <!-- =========================
-     FIREBASE
+     FIREBASE JAVASCRIPT
 ========================= -->
 
 <script type="module">
@@ -451,6 +478,10 @@ serverTimestamp
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
 const firebaseConfig = {
 
 apiKey: "AIzaSyBALCNrCDa2axuDKpuoGrmUGAI9bPDkRaE",
@@ -470,6 +501,10 @@ measurementId: "G-NHM5K4LP5R"
 };
 
 
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
+
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
@@ -483,14 +518,15 @@ const db = getFirestore(app);
 
 window.signUp = async function(){
 
-let name =
+const name =
 document.getElementById("signupName").value.trim();
 
-let email =
+const email =
 document.getElementById("signupEmail").value.trim();
 
-let password =
+const password =
 document.getElementById("signupPassword").value;
+
 
 if(!name || !email || !password){
 
@@ -501,6 +537,7 @@ return;
 
 }
 
+
 if(password.length < 6){
 
 document.getElementById("authMessage").innerText =
@@ -509,6 +546,7 @@ document.getElementById("authMessage").innerText =
 return;
 
 }
+
 
 try{
 
@@ -519,6 +557,7 @@ email,
 password
 );
 
+
 await updateProfile(
 userCredential.user,
 {
@@ -526,8 +565,10 @@ displayName:name
 }
 );
 
+
 document.getElementById("authMessage").innerText =
 "Account created successfully!";
+
 
 }catch(error){
 
@@ -545,11 +586,12 @@ error.message;
 
 window.login = async function(){
 
-let email =
+const email =
 document.getElementById("loginEmail").value.trim();
 
-let password =
+const password =
 document.getElementById("loginPassword").value;
+
 
 if(!email || !password){
 
@@ -560,6 +602,7 @@ return;
 
 }
 
+
 try{
 
 await signInWithEmailAndPassword(
@@ -568,8 +611,10 @@ email,
 password
 );
 
+
 document.getElementById("authMessage").innerText =
 "Login successful!";
+
 
 }catch(error){
 
@@ -638,7 +683,7 @@ document.getElementById("userBox").style.display =
 
 
 /* =========================
-   GENERATE
+   GENERATE CERTIFICATE
 ========================= */
 
 window.generate = async function(){
@@ -651,30 +696,33 @@ return;
 
 }
 
-let college =
+
+const college =
 document.getElementById("college").value;
 
-let name =
+const name =
 document.getElementById("name").value;
 
-let course =
+const course =
 document.getElementById("course").value;
 
-let major =
+const major =
 document.getElementById("major").value;
 
-let date =
+const date =
 document.getElementById("date").value;
 
-let signName =
+const signName =
 document.getElementById("signName").value;
 
-let signRole =
+const signRole =
 document.getElementById("signRole").value;
 
-let theme =
+const theme =
 document.getElementById("theme").value;
 
+
+/* UPDATE CERTIFICATE */
 
 document.getElementById("c_college").innerText =
 college;
@@ -698,7 +746,9 @@ document.getElementById("certificate").className =
 "certificate " + theme;
 
 
-let qrData =
+/* QR CODE */
+
+const qrData =
 college + " " +
 name + " " +
 course + " " +
@@ -707,6 +757,7 @@ date;
 
 
 document.getElementById("qrcode").innerHTML = "";
+
 
 new QRCode(
 document.getElementById("qrcode"),
@@ -718,9 +769,7 @@ height:90
 );
 
 
-/* =========================
-   SAVE TO FIRESTORE
-========================= */
+/* SAVE CERTIFICATE TO FIRESTORE */
 
 try{
 
@@ -753,8 +802,10 @@ createdAt:serverTimestamp()
 }
 );
 
+
 document.getElementById("authMessage").innerText =
 "Certificate generated and saved successfully!";
+
 
 }catch(error){
 
@@ -782,18 +833,22 @@ return;
 
 }
 
+
 const {jsPDF} =
 window.jspdf;
+
 
 html2canvas(
 document.getElementById("certificate")
 ).then(canvas=>{
 
-let img =
+const img =
 canvas.toDataURL("image/png");
 
-let pdf =
+
+const pdf =
 new jsPDF("l","mm","a4");
+
 
 pdf.addImage(
 img,
@@ -803,6 +858,7 @@ img,
 270,
 180
 );
+
 
 pdf.save("certificate.pdf");
 
