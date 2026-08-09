@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +12,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 
 body{
@@ -23,7 +21,15 @@ text-align:center;
 padding:20px;
 }
 
-/* ACCOUNT */
+.form{
+background:white;
+width:370px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+margin-bottom:30px;
+}
 
 .account{
 background:white;
@@ -40,9 +46,16 @@ padding:9px;
 margin:6px;
 }
 
-.account button{
+input,select{
+width:100%;
+padding:8px;
+margin:6px 0;
+box-sizing:border-box;
+}
+
+button{
 padding:10px 18px;
-margin:6px;
+margin-top:8px;
 background:#1a237e;
 color:white;
 border:none;
@@ -53,31 +66,8 @@ cursor:pointer;
 display:none;
 }
 
-/* FORM */
-
-.form{
-background:white;
-width:370px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 8px 25px rgba(0,0,0,0.15);
-margin-bottom:30px;
-}
-
-input,select{
-width:100%;
-padding:8px;
-margin:6px 0;
-}
-
-button{
-padding:10px 18px;
-margin-top:8px;
-background:#1a237e;
-color:white;
-border:none;
-cursor:pointer;
+#authMessage{
+font-weight:bold;
 }
 
 /* CERTIFICATE */
@@ -92,8 +82,6 @@ outline-offset:-18px;
 position:relative;
 overflow:hidden;
 }
-
-/* SECURITY PATTERN */
 
 .certificate::before{
 content:"";
@@ -110,8 +98,6 @@ transparent 8px
 );
 }
 
-/* WATERMARK */
-
 .watermark{
 position:absolute;
 top:50%;
@@ -121,8 +107,6 @@ font-size:110px;
 font-family:'Cinzel';
 opacity:0.05;
 }
-
-/* CONTENT */
 
 .content{
 position:relative;
@@ -148,8 +132,6 @@ background:gold;
 margin:auto;
 margin-bottom:25px;
 }
-
-/* MIDDLE */
 
 .middle{
 display:flex;
@@ -191,8 +173,6 @@ margin:35px;
 font-style:italic;
 font-size:18px;
 }
-
-/* FOOTER */
 
 .footer{
 display:flex;
@@ -254,8 +234,10 @@ margin-top:6px;
 
 <body>
 
+<h2>Premium Certificate Generator</h2>
+
 <!-- =========================
-     ACCOUNT SYSTEM
+     FIREBASE ACCOUNT
 ========================= -->
 
 <div class="account">
@@ -298,8 +280,6 @@ margin-top:6px;
 
 </div>
 
-
-<h2>Premium Certificate Generator</h2>
 
 <div class="form">
 
@@ -443,30 +423,65 @@ Principal
 </div>
 
 
-<script>
+<!-- =========================
+     FIREBASE
+========================= -->
 
-/* =========================
-   SUPABASE
-========================= */
+<script type="module">
 
-const SUPABASE_URL =
-"https://bbjvpawgjmyndmvqbugv.supabase.co";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-const SUPABASE_KEY =
-"sb_publishable_D8zd7O1S0Tr41SyYMkhNEA_1-29mF4c";
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged,
+updateProfile
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-const supabaseClient =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+import {
+getFirestore,
+collection,
+addDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBALCNrCDa2axuDKpuoGrmUGAI9bPDkRaE",
+
+authDomain: "e-certificate-generator-d9c4e.firebaseapp.com",
+
+projectId: "e-certificate-generator-d9c4e",
+
+storageBucket: "e-certificate-generator-d9c4e.firebasestorage.app",
+
+messagingSenderId: "492480498420",
+
+appId: "1:492480498420:web:730e1bfaffd295d3d9aca1",
+
+measurementId: "G-NHM5K4LP5R"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
 
 
 /* =========================
    SIGN UP
 ========================= */
 
-async function signUp(){
+window.signUp = async function(){
 
 let name =
 document.getElementById("signupName").value.trim();
@@ -495,52 +510,40 @@ return;
 
 }
 
-const {data,error} =
-await supabaseClient.auth.signUp({
+try{
 
-email:email,
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-password:password,
-
-options:{
-data:{
-full_name:name
+await updateProfile(
+userCredential.user,
+{
+displayName:name
 }
-}
-
-});
-
-if(error){
-
-document.getElementById("authMessage").innerText =
-error.message;
-
-return;
-
-}
-
-if(data.session){
+);
 
 document.getElementById("authMessage").innerText =
 "Account created successfully!";
 
-showUser(data.user);
-
-}else{
+}catch(error){
 
 document.getElementById("authMessage").innerText =
-"Account created. Check your email to confirm.";
+error.message;
 
 }
 
-}
+};
 
 
 /* =========================
    LOGIN
 ========================= */
 
-async function login(){
+window.login = async function(){
 
 let email =
 document.getElementById("loginEmail").value.trim();
@@ -557,60 +560,71 @@ return;
 
 }
 
-const {data,error} =
-await supabaseClient.auth.signInWithPassword({
+try{
 
-email:email,
-
-password:password
-
-});
-
-if(error){
-
-document.getElementById("authMessage").innerText =
-error.message;
-
-return;
-
-}
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
 document.getElementById("authMessage").innerText =
 "Login successful!";
 
-showUser(data.user);
+}catch(error){
+
+document.getElementById("authMessage").innerText =
+error.message;
 
 }
 
-
-/* =========================
-   SHOW USER
-========================= */
-
-function showUser(user){
-
-document.getElementById("authBox").style.display =
-"none";
-
-document.getElementById("userBox").style.display =
-"block";
-
-let name =
-user.user_metadata?.full_name || "User";
-
-document.getElementById("userInfo").innerText =
-"Logged in as: " + name + "\n" + user.email;
-
-}
+};
 
 
 /* =========================
    LOGOUT
 ========================= */
 
-async function logout(){
+window.logout = async function(){
 
-await supabaseClient.auth.signOut();
+try{
+
+await signOut(auth);
+
+document.getElementById("authMessage").innerText =
+"Logged out successfully.";
+
+}catch(error){
+
+document.getElementById("authMessage").innerText =
+error.message;
+
+}
+
+};
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+document.getElementById("authBox").style.display =
+"none";
+
+document.getElementById("userBox").style.display =
+"block";
+
+document.getElementById("userInfo").innerText =
+"Logged in as: " +
+(user.displayName || "User") +
+"\n" +
+user.email;
+
+}else{
 
 document.getElementById("authBox").style.display =
 "block";
@@ -618,45 +632,18 @@ document.getElementById("authBox").style.display =
 document.getElementById("userBox").style.display =
 "none";
 
-document.getElementById("userInfo").innerText =
-"";
-
-document.getElementById("authMessage").innerText =
-"Logged out successfully.";
-
 }
 
-
-/* =========================
-   CHECK USER
-========================= */
-
-async function checkUser(){
-
-const {data} =
-await supabaseClient.auth.getUser();
-
-if(data.user){
-
-showUser(data.user);
-
-}
-
-}
-
-checkUser();
+});
 
 
 /* =========================
    GENERATE
 ========================= */
 
-async function generate(){
+window.generate = async function(){
 
-const {data} =
-await supabaseClient.auth.getUser();
-
-if(!data.user){
+if(!auth.currentUser){
 
 alert("Please Login first.");
 
@@ -688,6 +675,7 @@ document.getElementById("signRole").value;
 let theme =
 document.getElementById("theme").value;
 
+
 document.getElementById("c_college").innerText =
 college;
 
@@ -709,12 +697,14 @@ signRole;
 document.getElementById("certificate").className =
 "certificate " + theme;
 
+
 let qrData =
 college + " " +
 name + " " +
 course + " " +
 major + " " +
 date;
+
 
 document.getElementById("qrcode").innerHTML = "";
 
@@ -727,19 +717,64 @@ height:90
 }
 );
 
+
+/* =========================
+   SAVE TO FIRESTORE
+========================= */
+
+try{
+
+await addDoc(
+collection(db,"certificates"),
+{
+
+userId:auth.currentUser.uid,
+
+userEmail:auth.currentUser.email,
+
+collegeName:college,
+
+recipientName:name,
+
+course:course,
+
+major:major,
+
+certificateDate:date,
+
+signatoryName:signName,
+
+signatoryRole:signRole,
+
+theme:theme,
+
+createdAt:serverTimestamp()
+
 }
+);
+
+document.getElementById("authMessage").innerText =
+"Certificate generated and saved successfully!";
+
+}catch(error){
+
+console.error(error);
+
+document.getElementById("authMessage").innerText =
+"Certificate generated, but database save failed.";
+
+}
+
+};
 
 
 /* =========================
    DOWNLOAD PDF
 ========================= */
 
-async function downloadPDF(){
+window.downloadPDF = function(){
 
-const {data} =
-await supabaseClient.auth.getUser();
-
-if(!data.user){
+if(!auth.currentUser){
 
 alert("Please Login first.");
 
@@ -773,9 +808,10 @@ pdf.save("certificate.pdf");
 
 });
 
-}
+};
 
 </script>
 
 </body>
 </html>
+```
