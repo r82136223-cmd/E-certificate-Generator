@@ -1,8 +1,23 @@
-<!DOCTYPE html><html>
+```html
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Premium Certificate Generator</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Playfair+Display&family=EB+Garamond&display=swap" rel="stylesheet"><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Playfair+Display&family=EB+Garamond&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 
 body{
 background:#eef1f7;
@@ -10,8 +25,6 @@ font-family:'EB Garamond';
 text-align:center;
 padding:20px;
 }
-
-/* FORM */
 
 .form{
 background:white;
@@ -38,8 +51,6 @@ border:none;
 cursor:pointer;
 }
 
-/* CERTIFICATE */
-
 .certificate{
 width:900px;
 margin:auto;
@@ -50,8 +61,6 @@ outline-offset:-18px;
 position:relative;
 overflow:hidden;
 }
-
-/* SECURITY PATTERN */
 
 .certificate::before{
 content:"";
@@ -68,8 +77,6 @@ transparent 8px
 );
 }
 
-/* WATERMARK */
-
 .watermark{
 position:absolute;
 top:50%;
@@ -79,8 +86,6 @@ font-size:110px;
 font-family:'Cinzel';
 opacity:0.05;
 }
-
-/* CONTENT */
 
 .content{
 position:relative;
@@ -106,8 +111,6 @@ background:gold;
 margin:auto;
 margin-bottom:25px;
 }
-
-/* MIDDLE */
 
 .middle{
 display:flex;
@@ -150,8 +153,6 @@ font-style:italic;
 font-size:18px;
 }
 
-/* FOOTER */
-
 .footer{
 display:flex;
 justify-content:space-between;
@@ -169,8 +170,6 @@ background:#333;
 margin:auto;
 margin-top:6px;
 }
-
-/* THEME COLORS + INTERIOR */
 
 .theme1{border-color:#0d47a1;background:#f1f6ff}
 .theme2{border-color:#1b5e20;background:#f1fff6}
@@ -207,18 +206,41 @@ margin-top:6px;
 .theme29{border-color:#1976d2;background:#eef6ff}
 .theme30{border-color:#d32f2f;background:#fff1f1}
 
-</style></head><body><h2>Premium Certificate Generator</h2><div class="form"><input id="college" placeholder="College Name">
+</style>
+</head>
+
+<body>
+
+<h2>Premium Certificate Generator</h2>
+
+<div class="form">
+
+<input id="college" placeholder="College Name">
+
 <input id="name" placeholder="Recipient Name">
+
 <input id="course" placeholder="Course">
+
 <input id="major" placeholder="Major">
-<input id="date" type="date"><input id="signName" placeholder="Signatory Name"><select id="signRole">
+
+<input id="date" type="date">
+
+<input id="signName" placeholder="Signatory Name">
+
+<select id="signRole">
+
 <option>Principal</option>
 <option>Coordinator</option>
 <option>Chairperson</option>
 <option>Director</option>
 <option>Registrar</option>
 <option>Controller of Examinations</option>
-</select><select id="theme"><option value="theme1">Royal Blue</option>
+
+</select>
+
+<select id="theme">
+
+<option value="theme1">Royal Blue</option>
 <option value="theme2">Emerald Gold</option>
 <option value="theme3">Crimson Elite</option>
 <option value="theme4">Sunset Bronze</option>
@@ -227,80 +249,244 @@ margin-top:6px;
 <option value="theme7">Olive Heritage</option>
 <option value="theme8">Charcoal Classic</option>
 <option value="theme9">Ocean Sapphire</option>
-<option value="theme10">Ruby Signature</option><option value="theme11">Midnight Royal</option>
+<option value="theme10">Ruby Signature</option>
+
+<option value="theme11">Midnight Royal</option>
 <option value="theme12">Aqua Prime</option>
 <option value="theme13">Forest Crown</option>
 <option value="theme14">Coffee Noble</option>
-<option value="theme15">Lavender Royal</option><option value="theme16">Indigo Master</option>
+<option value="theme15">Lavender Royal</option>
+
+<option value="theme16">Indigo Master</option>
 <option value="theme17">Sky Platinum</option>
 <option value="theme18">Rose Prestige</option>
 <option value="theme19">Green Monarch</option>
-<option value="theme20">Steel Authority</option><option value="theme21">Scarlet Supreme</option>
+<option value="theme20">Steel Authority</option>
+
+<option value="theme21">Scarlet Supreme</option>
 <option value="theme22">Dark Walnut</option>
 <option value="theme23">Elite Green</option>
 <option value="theme24">Classic Mocha</option>
-<option value="theme25">Imperial Blue</option><option value="theme26">Deep Teal</option>
+<option value="theme25">Imperial Blue</option>
+
+<option value="theme26">Deep Teal</option>
 <option value="theme27">Royal Orchid</option>
 <option value="theme28">Golden Brown</option>
 <option value="theme29">Azure Royal</option>
-<option value="theme30">Grand Crimson</option></select><button onclick="generate()">Generate</button>
+<option value="theme30">Grand Crimson</option>
+
+</select>
+
+<button onclick="generate()">Generate</button>
+
 <button onclick="downloadPDF()">Download PDF</button>
 
-</div><div id="certificate" class="certificate theme1"><div class="watermark">I T S COLLEGE</div><div class="content"><div class="college" id="c_college">COLLEGE NAME</div><div class="title">CERTIFICATE OF GRADUATION</div><div class="decor"></div><p>This is to certify that</p><div class="middle"><div class="seal">OFFICIAL<br>SEAL</div><div class="name-area"><div class="name" id="c_name">Recipient Name</div><div class="degree">
-has successfully completed <b id="c_degree">Course in Major</b>
-</div></div><div id="qrcode"></div></div><div class="message">
+</div>
+
+<div id="certificate" class="certificate theme1">
+
+<div class="watermark">I T S COLLEGE</div>
+
+<div class="content">
+
+<div class="college" id="c_college">
+COLLEGE NAME
+</div>
+
+<div class="title">
+CERTIFICATE OF GRADUATION
+</div>
+
+<div class="decor"></div>
+
+<p>This is to certify that</p>
+
+<div class="middle">
+
+<div class="seal">
+OFFICIAL
+<br>
+SEAL
+</div>
+
+<div class="name-area">
+
+<div class="name" id="c_name">
+Recipient Name
+</div>
+
+<div class="degree">
+
+has successfully completed
+
+<b id="c_degree">
+Course in Major
+</b>
+
+</div>
+
+</div>
+
+<div id="qrcode"></div>
+
+</div>
+
+<div class="message">
+
 May this achievement mark the beginning of a journey filled with knowledge and success.
-</div><div class="footer"><div id="c_date">Date</div><div class="sig"><div id="c_signName">Signatory Name</div><div class="sig-line"></div><div id="c_signRole">Principal</div></div></div></div></div><script>
+
+</div>
+
+<div class="footer">
+
+<div id="c_date">
+Date
+</div>
+
+<div class="sig">
+
+<div id="c_signName">
+Signatory Name
+</div>
+
+<div class="sig-line"></div>
+
+</div>
+
+<div id="c_signRole">
+Principal
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================================
+   SUPABASE CONNECTION
+================================ */
+
+const SUPABASE_URL =
+"https://bbjvpawgjmyndmvqbugv.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_D8zd7O1S0Tr41SyYMkhNEA_1-29mF4c";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* ================================
+   YOUR ORIGINAL GENERATE FUNCTION
+================================ */
 
 function generate(){
 
-let college=document.getElementById("college").value
-let name=document.getElementById("name").value
-let course=document.getElementById("course").value
-let major=document.getElementById("major").value
-let date=document.getElementById("date").value
-let signName=document.getElementById("signName").value
-let signRole=document.getElementById("signRole").value
-let theme=document.getElementById("theme").value
+let college=document.getElementById("college").value;
 
-document.getElementById("c_college").innerText=college
-document.getElementById("c_name").innerText=name
-document.getElementById("c_degree").innerText=course+" in "+major
-document.getElementById("c_date").innerText="Date: "+date
-document.getElementById("c_signName").innerText=signName
-document.getElementById("c_signRole").innerText=signRole
+let name=document.getElementById("name").value;
 
-document.getElementById("certificate").className="certificate "+theme
+let course=document.getElementById("course").value;
 
-let qrData=college+" "+name+" "+course+" "+major+" "+date
+let major=document.getElementById("major").value;
 
-document.getElementById("qrcode").innerHTML=""
+let date=document.getElementById("date").value;
 
-new QRCode(document.getElementById("qrcode"),{
+let signName=document.getElementById("signName").value;
+
+let signRole=document.getElementById("signRole").value;
+
+let theme=document.getElementById("theme").value;
+
+
+document.getElementById("c_college").innerText=college;
+
+document.getElementById("c_name").innerText=name;
+
+document.getElementById("c_degree").innerText=
+course+" in "+major;
+
+document.getElementById("c_date").innerText=
+"Date: "+date;
+
+document.getElementById("c_signName").innerText=
+signName;
+
+document.getElementById("c_signRole").innerText=
+signRole;
+
+
+document.getElementById("certificate").className=
+"certificate "+theme;
+
+
+let qrData=
+college+" "+
+name+" "+
+course+" "+
+major+" "+
+date;
+
+
+document.getElementById("qrcode").innerHTML="";
+
+
+new QRCode(
+document.getElementById("qrcode"),
+{
 text:qrData,
 width:90,
 height:90
-})
+}
+);
 
 }
+
+
+/* ================================
+   YOUR ORIGINAL PDF FUNCTION
+================================ */
 
 function downloadPDF(){
 
-const {jsPDF}=window.jspdf
+const {jsPDF}=window.jspdf;
 
-html2canvas(document.getElementById("certificate")).then(canvas=>{
+html2canvas(
+document.getElementById("certificate")
+).then(canvas=>{
 
-let img=canvas.toDataURL("image/png")
+let img=canvas.toDataURL("image/png");
 
-let pdf=new jsPDF("l","mm","a4")
+let pdf=new jsPDF(
+"l",
+"mm",
+"a4"
+);
 
-pdf.addImage(img,"PNG",10,10,270,180)
+pdf.addImage(
+img,
+"PNG",
+10,
+10,
+270,
+180
+);
 
-pdf.save("certificate.pdf")
+pdf.save("certificate.pdf");
 
-})
+});
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
+```
