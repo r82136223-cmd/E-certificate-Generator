@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,6 +89,7 @@ outline:4px solid gold;
 outline-offset:-18px;
 position:relative;
 overflow:hidden;
+box-sizing:border-box;
 }
 
 /* SECURITY PATTERN */
@@ -201,14 +201,26 @@ align-items:end;
 
 .sig{
 text-align:center;
+min-width:190px;
+}
+
+.sign-name{
+font-size:18px;
+font-weight:bold;
+margin-bottom:5px;
 }
 
 .sig-line{
 width:170px;
 height:2px;
 background:#333;
-margin:auto;
-margin-top:6px;
+margin:5px auto;
+}
+
+.sign-role{
+font-size:16px;
+font-weight:bold;
+margin-top:5px;
 }
 
 /* THEMES */
@@ -248,6 +260,27 @@ margin-top:6px;
 .theme29{border-color:#1976d2;background:#eef6ff}
 .theme30{border-color:#d32f2f;background:#fff1f1}
 
+/* MOBILE */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+}
+
+.account,
+.form{
+width:90%;
+}
+
+.certificate{
+transform-origin:top left;
+transform:scale(0.45);
+margin-bottom:-300px;
+}
+
+}
+
 </style>
 </head>
 
@@ -255,9 +288,7 @@ margin-top:6px;
 
 <h2>Premium Certificate Generator</h2>
 
-<!-- =========================
-     FIREBASE ACCOUNT
-========================= -->
+<!-- ACCOUNT -->
 
 <div class="account">
 
@@ -300,9 +331,7 @@ margin-top:6px;
 </div>
 
 
-<!-- =========================
-     CERTIFICATE FORM
-========================= -->
+<!-- CERTIFICATE FORM -->
 
 <div class="form">
 
@@ -321,6 +350,7 @@ margin-top:6px;
 <select id="signRole">
 
 <option>Principal</option>
+<option>HOD</option>
 <option>Coordinator</option>
 <option>Chairperson</option>
 <option>Director</option>
@@ -375,9 +405,7 @@ margin-top:6px;
 </div>
 
 
-<!-- =========================
-     CERTIFICATE
-========================= -->
+<!-- CERTIFICATE -->
 
 <div id="certificate" class="certificate theme1">
 
@@ -432,27 +460,25 @@ Date
 
 <div class="sig">
 
-<div id="c_signName">
+<div id="c_signName" class="sign-name">
 Signatory Name
 </div>
 
 <div class="sig-line"></div>
 
-</div>
-
-<div id="c_signRole">
+<div id="c_signRole" class="sign-role">
 Principal
 </div>
 
 </div>
 
 </div>
+
+</div>
 </div>
 
 
-<!-- =========================
-     FIREBASE JAVASCRIPT
-========================= -->
+<!-- FIREBASE -->
 
 <script type="module">
 
@@ -478,10 +504,6 @@ serverTimestamp
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE CONFIG
-========================= */
-
 const firebaseConfig = {
 
 apiKey: "AIzaSyBALCNrCDa2axuDKpuoGrmUGAI9bPDkRaE",
@@ -501,10 +523,6 @@ measurementId: "G-NHM5K4LP5R"
 };
 
 
-/* =========================
-   INITIALIZE FIREBASE
-========================= */
-
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
@@ -512,9 +530,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-/* =========================
-   SIGN UP
-========================= */
+/* SIGN UP */
 
 window.signUp = async function(){
 
@@ -527,7 +543,6 @@ document.getElementById("signupEmail").value.trim();
 const password =
 document.getElementById("signupPassword").value;
 
-
 if(!name || !email || !password){
 
 document.getElementById("authMessage").innerText =
@@ -536,7 +551,6 @@ document.getElementById("authMessage").innerText =
 return;
 
 }
-
 
 if(password.length < 6){
 
@@ -547,7 +561,6 @@ return;
 
 }
 
-
 try{
 
 const userCredential =
@@ -557,7 +570,6 @@ email,
 password
 );
 
-
 await updateProfile(
 userCredential.user,
 {
@@ -565,10 +577,8 @@ displayName:name
 }
 );
 
-
 document.getElementById("authMessage").innerText =
 "Account created successfully!";
-
 
 }catch(error){
 
@@ -580,9 +590,7 @@ error.message;
 };
 
 
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 window.login = async function(){
 
@@ -591,7 +599,6 @@ document.getElementById("loginEmail").value.trim();
 
 const password =
 document.getElementById("loginPassword").value;
-
 
 if(!email || !password){
 
@@ -602,7 +609,6 @@ return;
 
 }
 
-
 try{
 
 await signInWithEmailAndPassword(
@@ -611,10 +617,8 @@ email,
 password
 );
 
-
 document.getElementById("authMessage").innerText =
 "Login successful!";
-
 
 }catch(error){
 
@@ -626,9 +630,7 @@ error.message;
 };
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* LOGOUT */
 
 window.logout = async function(){
 
@@ -649,9 +651,7 @@ error.message;
 };
 
 
-/* =========================
-   AUTH STATE
-========================= */
+/* AUTH STATE */
 
 onAuthStateChanged(auth,(user)=>{
 
@@ -682,9 +682,7 @@ document.getElementById("userBox").style.display =
 });
 
 
-/* =========================
-   GENERATE CERTIFICATE
-========================= */
+/* GENERATE */
 
 window.generate = async function(){
 
@@ -695,7 +693,6 @@ alert("Please Login first.");
 return;
 
 }
-
 
 const college =
 document.getElementById("college").value;
@@ -755,9 +752,7 @@ course + " " +
 major + " " +
 date;
 
-
 document.getElementById("qrcode").innerHTML = "";
-
 
 new QRCode(
 document.getElementById("qrcode"),
@@ -769,7 +764,7 @@ height:90
 );
 
 
-/* SAVE CERTIFICATE TO FIRESTORE */
+/* SAVE TO FIRESTORE */
 
 try{
 
@@ -802,10 +797,8 @@ createdAt:serverTimestamp()
 }
 );
 
-
 document.getElementById("authMessage").innerText =
 "Certificate generated and saved successfully!";
-
 
 }catch(error){
 
@@ -819,9 +812,7 @@ document.getElementById("authMessage").innerText =
 };
 
 
-/* =========================
-   DOWNLOAD PDF
-========================= */
+/* DOWNLOAD PDF */
 
 window.downloadPDF = function(){
 
@@ -833,22 +824,22 @@ return;
 
 }
 
-
 const {jsPDF} =
 window.jspdf;
 
-
 html2canvas(
-document.getElementById("certificate")
+document.getElementById("certificate"),
+{
+scale:2,
+useCORS:true
+}
 ).then(canvas=>{
 
 const img =
 canvas.toDataURL("image/png");
 
-
 const pdf =
 new jsPDF("l","mm","a4");
-
 
 pdf.addImage(
 img,
@@ -858,7 +849,6 @@ img,
 270,
 180
 );
-
 
 pdf.save("certificate.pdf");
 
@@ -870,4 +860,3 @@ pdf.save("certificate.pdf");
 
 </body>
 </html>
-```
